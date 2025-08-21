@@ -1,8 +1,31 @@
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("ApiKey", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    {
+        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+        Name = "X-Api-Key",
+        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
+        Description = "Enter your API key (default: dev-12345)"
+    });
 
+    options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+    {
+        {
+            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            {
+                Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                {
+                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                    Id = "ApiKey"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
 builder.Services.AddMongo(builder.Configuration);
 
 builder.Services.AddSingleton<IParkingRepository, ParkingRepository>();
@@ -13,16 +36,23 @@ builder.Services.AddSingleton<IReservationService, ReservationService>();
 var app = builder.Build();
 
 app.UseGlobalErrorHandling(app.Services.GetRequiredService<ILoggerFactory>());
-app.UseApiKeyAuth();
 
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.UseWhen(ctx =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    var p = ctx.Request.Path;
+    // Allow swagger UI + assets and the favicon
+    return !p.StartsWithSegments("/swagger") &&
+           !p.StartsWithSegments("/favicon.ico");
+}, branch =>
+{
+    branch.UseApiKeyAuth();
+});
 
-var parkings = app.MapGroup("/api/parkings");
-parkings.WithTags("Parkings");
+// --- Endpoints ---
+var parkings = app.MapGroup("/api/parkings").WithTags("Parkings");
 
 parkings.MapGet("", async ([FromServices] IParkingService svc, CancellationToken ct) =>
 {
@@ -45,12 +75,13 @@ parkings.MapPost("", async ([FromServices] IParkingService svc, [FromBody] Creat
     }
     catch (ValidationException ex)
     {
-        return Results.ValidationProblem(new Dictionary<string, string[]> { { "validation", [ex.Message] } }, statusCode: StatusCodes.Status400BadRequest);
+        return Results.ValidationProblem(
+            new Dictionary<string, string[]> { { "validation", [ex.Message] } },
+            statusCode: StatusCodes.Status400BadRequest);
     }
 });
 
-var spots = app.MapGroup("/api/parkingspots");
-spots.WithTags("Parking Spots");
+var spots = app.MapGroup("/api/parkingspots").WithTags("Parking Spots");
 
 spots.MapPost("", async ([FromServices] IParkingService svc, [FromBody] CreateParkingSpotRequest req, CancellationToken ct) =>
 {
@@ -61,12 +92,13 @@ spots.MapPost("", async ([FromServices] IParkingService svc, [FromBody] CreatePa
     }
     catch (ValidationException ex)
     {
-        return Results.ValidationProblem(new Dictionary<string, string[]> { { "validation", [ex.Message] } }, statusCode: StatusCodes.Status400BadRequest);
+        return Results.ValidationProblem(
+            new Dictionary<string, string[]> { { "validation", [ex.Message] } },
+            statusCode: StatusCodes.Status400BadRequest);
     }
 });
 
-var reservations = app.MapGroup("/api/reservations");
-reservations.WithTags("Reservations");
+var reservations = app.MapGroup("/api/reservations").WithTags("Reservations");
 
 reservations.MapPost("/start", async ([FromServices] IReservationService svc, [FromBody] StartReservationRequest req, CancellationToken ct) =>
 {
@@ -77,7 +109,9 @@ reservations.MapPost("/start", async ([FromServices] IReservationService svc, [F
     }
     catch (ValidationException ex)
     {
-        return Results.ValidationProblem(new Dictionary<string, string[]> { { "validation", [ex.Message] } }, statusCode: StatusCodes.Status400BadRequest);
+        return Results.ValidationProblem(
+            new Dictionary<string, string[]> { { "validation", [ex.Message] } },
+            statusCode: StatusCodes.Status400BadRequest);
     }
     catch (KeyNotFoundException)
     {
@@ -98,7 +132,9 @@ reservations.MapPost("/end", async ([FromServices] IReservationService svc, [Fro
     }
     catch (ValidationException ex)
     {
-        return Results.ValidationProblem(new Dictionary<string, string[]> { { "validation", [ex.Message] } }, statusCode: StatusCodes.Status400BadRequest);
+        return Results.ValidationProblem(
+            new Dictionary<string, string[]> { { "validation", [ex.Message] } },
+            statusCode: StatusCodes.Status400BadRequest);
     }
     catch (KeyNotFoundException)
     {

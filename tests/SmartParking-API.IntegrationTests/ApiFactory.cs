@@ -2,31 +2,30 @@ namespace SmartParking_API.IntegrationTests;
 
 public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
-    private readonly MongoDbTestcontainer _mongo;
+    private readonly bool _useLocalMongo =
+        string.Equals(Environment.GetEnvironmentVariable("SP_ITEST_LOCAL"), "1", StringComparison.OrdinalIgnoreCase);
+
+    private readonly string _dbName = $"smartparking_test_{Guid.NewGuid():N}";
+    private MongoDbContainer? _mongo;
+    private string? _connString;
 
     public ApiFactory()
     {
-        var cfg = new MongoDbTestcontainerConfiguration
+        if (_useLocalMongo)
         {
-            Database = "smartparking_test",
-            Username = "root",            // required on 1.7.x
-            Password = "secret"           // required on 1.7.x
-        };
+            // Use your own MongoDB on localhost:27017
+            _connString = "mongodb://localhost:27017";
+            return;
+        }
 
-        _mongo = new TestcontainersBuilder<MongoDbTestcontainer>()
-            .WithImage("mongo:7")
-            // these env vars are what the image expects for root user + default DB
-            .WithEnvironment("MONGO_INITDB_ROOT_USERNAME", cfg.Username)
-            .WithEnvironment("MONGO_INITDB_ROOT_PASSWORD", cfg.Password)
-            .WithEnvironment("MONGO_INITDB_DATABASE", cfg.Database)
-            .WithDatabase(cfg)
-            .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(27017)) // optional but helps on Windows
+        // New v3 builder API:
+        _mongo = new MongoDbBuilder()
+            .WithImage("mongo:7")        // optional; defaults to a stable tag
+            .WithPortBinding(0, 27017)   // map container 27017 to a random host port
             .Build();
     }
 
-
-
-    public string ConnectionString => _mongo.ConnectionString;
+    public string ConnectionString => _connString ?? _mongo!.GetConnectionString();
 
     protected override IHost CreateHost(IHostBuilder builder)
     {
@@ -35,8 +34,8 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
             var dict = new Dictionary<string, string?>
             {
                 ["MongoDb:ConnectionString"] = ConnectionString,
-                ["MongoDb:DatabaseName"] = "smartparking_test",
-                ["Auth:ApiKey"] = "dev-12345"
+                ["MongoDb:DatabaseName"]     = _dbName,
+                ["Auth:ApiKey"]              = "dev-12345"
             };
             cfg.AddInMemoryCollection(dict!);
         });
@@ -44,6 +43,15 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
         return base.CreateHost(builder);
     }
 
-    public async Task InitializeAsync() => await _mongo.StartAsync();
-    public new async Task DisposeAsync() => await _mongo.DisposeAsync();
+    public async Task InitializeAsync()
+    {
+        if (_useLocalMongo) return;
+        await _mongo!.StartAsync();
+    }
+
+    public new async Task DisposeAsync()
+    {
+        if (_useLocalMongo) return;
+        await _mongo!.DisposeAsync();
+    }
 }

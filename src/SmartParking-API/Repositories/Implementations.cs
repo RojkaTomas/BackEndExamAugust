@@ -5,8 +5,16 @@ public sealed class ParkingRepository(IMongoCollection<Parking> collection) : IP
     public async Task<List<Parking>> GetAllAsync(CancellationToken ct)
         => await collection.Find(_ => true).ToListAsync(ct);
 
-    public async Task<Parking?> GetByIdAsync(string id, CancellationToken ct)
-        => await collection.Find(p => p.Id == id).FirstOrDefaultAsync(ct);
+   public async Task<Parking?> GetByIdAsync(string id, CancellationToken ct)
+    {
+        // Validate ObjectId first
+        if (!ObjectId.TryParse(id, out _))
+            return null; // invalid id → treat as not found
+
+        return await collection
+            .Find(x => x.Id == id)
+            .FirstOrDefaultAsync(ct);
+    }
 
     public async Task<string> CreateAsync(Parking parking, CancellationToken ct)
     {

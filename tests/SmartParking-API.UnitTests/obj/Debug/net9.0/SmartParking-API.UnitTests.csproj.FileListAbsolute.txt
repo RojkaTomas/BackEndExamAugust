@@ -1,9 +1,4 @@
 C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\bin\Debug\net9.0\.msCoverageSourceRootsMapping_SmartParking-API.UnitTests
-C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\obj\Debug\net9.0\SmartParking-API.UnitTests.csproj.AssemblyReference.cache
-C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\obj\Debug\net9.0\SmartParking-API.UnitTests.GeneratedMSBuildEditorConfig.editorconfig
-C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\obj\Debug\net9.0\SmartParking-API.UnitTests.AssemblyInfoInputs.cache
-C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\obj\Debug\net9.0\SmartParking-API.UnitTests.AssemblyInfo.cs
-C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\obj\Debug\net9.0\SmartParking-API.UnitTests.csproj.CoreCompileInputs.cache
 C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\bin\Debug\net9.0\testhost.dll
 C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\bin\Debug\net9.0\SmartParking-API.deps.json
 C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\bin\Debug\net9.0\SmartParking-API.runtimeconfig.json
@@ -120,10 +115,15 @@ C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests
 C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\bin\Debug\net9.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\bin\Debug\net9.0\SmartParking-API.dll
 C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\bin\Debug\net9.0\SmartParking-API.pdb
+C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\obj\Debug\net9.0\SmartParking-API.UnitTests.csproj.AssemblyReference.cache
+C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\obj\Debug\net9.0\SmartParking-API.UnitTests.GeneratedMSBuildEditorConfig.editorconfig
+C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\obj\Debug\net9.0\SmartParking-API.UnitTests.AssemblyInfoInputs.cache
+C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\obj\Debug\net9.0\SmartParking-API.UnitTests.AssemblyInfo.cs
+C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\obj\Debug\net9.0\SmartParking-API.UnitTests.csproj.CoreCompileInputs.cache
+C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\obj\Debug\net9.0\SmartParking-API.UnitTests.sourcelink.json
 C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\obj\Debug\net9.0\SmartPar.EBF7171A.Up2Date
 C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\obj\Debug\net9.0\SmartParking-API.UnitTests.dll
 C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\obj\Debug\net9.0\refint\SmartParking-API.UnitTests.dll
 C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\obj\Debug\net9.0\SmartParking-API.UnitTests.pdb
 C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\obj\Debug\net9.0\SmartParking-API.UnitTests.genruntimeconfig.cache
 C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\obj\Debug\net9.0\ref\SmartParking-API.UnitTests.dll
-C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.UnitTests\obj\Debug\net9.0\SmartParking-API.UnitTests.sourcelink.json
