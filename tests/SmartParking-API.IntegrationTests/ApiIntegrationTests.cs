@@ -15,7 +15,7 @@ public class ApiIntegrationTests : IClassFixture<ApiFactory>
     [Fact]
     public async Task Get_All_Parkings_Works()
     {
-        // Seed one parking
+    
         var create = new
         {
             name = "Test Parking",
@@ -36,7 +36,6 @@ public class ApiIntegrationTests : IClassFixture<ApiFactory>
     [Fact]
     public async Task Get_Parking_By_Id_Works_And_404s_For_Missing()
     {
-        // Create
         var create = new
         {
             name = "Another Parking",
@@ -48,11 +47,9 @@ public class ApiIntegrationTests : IClassFixture<ApiFactory>
         var created = await post.Content.ReadFromJsonAsync<Dictionary<string, string>>();
         var id = created!["id"];
 
-        // Get existing
         var ok = await _client.GetAsync($"/api/parkings/{id}");
         ok.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
 
-        // Get non-existent
         var notFound = await _client.GetAsync($"/api/parkings/66aaaaaaaaaaaaaaaabbbbbbb");
         notFound.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
     }

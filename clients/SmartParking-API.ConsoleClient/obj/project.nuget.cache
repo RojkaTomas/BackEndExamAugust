@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "o6OgncKic6U=",
+  "success": true,
+  "projectFilePath": "C:\\School\\Backend-development\\BackEndExamAugust\\clients\\SmartParking-API.ConsoleClient\\SmartParking-API.ConsoleClient.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\tomin\\.nuget\\packages\\system.net.http.json\\9.0.8\\system.net.http.json.9.0.8.nupkg.sha512"
+  ],
+  "logs": []
+}

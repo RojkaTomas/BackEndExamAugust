@@ -6,11 +6,25 @@ public sealed class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
 
     public ApiFactory()
     {
+        var cfg = new MongoDbTestcontainerConfiguration
+        {
+            Database = "smartparking_test",
+            Username = "root",            // required on 1.7.x
+            Password = "secret"           // required on 1.7.x
+        };
+
         _mongo = new TestcontainersBuilder<MongoDbTestcontainer>()
             .WithImage("mongo:7")
-            .WithDatabase(new MongoDbTestcontainerConfiguration())
+            // these env vars are what the image expects for root user + default DB
+            .WithEnvironment("MONGO_INITDB_ROOT_USERNAME", cfg.Username)
+            .WithEnvironment("MONGO_INITDB_ROOT_PASSWORD", cfg.Password)
+            .WithEnvironment("MONGO_INITDB_DATABASE", cfg.Database)
+            .WithDatabase(cfg)
+            .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(27017)) // optional but helps on Windows
             .Build();
     }
+
+
 
     public string ConnectionString => _mongo.ConnectionString;
 

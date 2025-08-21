@@ -437,3 +437,4 @@ C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.Integrati
 C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.IntegrationTests\obj\Debug\net9.0\SmartParking-API.IntegrationTests.pdb
 C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.IntegrationTests\obj\Debug\net9.0\SmartParking-API.IntegrationTests.genruntimeconfig.cache
 C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.IntegrationTests\obj\Debug\net9.0\ref\SmartParking-API.IntegrationTests.dll
+C:\School\Backend-development\BackEndExamAugust\tests\SmartParking-API.IntegrationTests\obj\Debug\net9.0\SmartParking-API.IntegrationTests.sourcelink.json

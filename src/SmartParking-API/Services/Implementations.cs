@@ -8,7 +8,6 @@ public sealed class ParkingService(IParkingRepository repo) : IParkingService
 
     public async Task<string> CreateAsync(CreateParkingRequest req, CancellationToken ct)
     {
-        // Validate DTO
         if (!MiniValidator.TryValidate(req, out var errors))
             throw new ValidationException(string.Join("; ", errors.SelectMany(kv => kv.Value)));
 

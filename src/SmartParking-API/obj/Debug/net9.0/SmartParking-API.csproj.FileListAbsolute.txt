@@ -45,3 +45,4 @@ C:\School\Backend-development\BackEndExamAugust\src\SmartParking-API\obj\Debug\n
 C:\School\Backend-development\BackEndExamAugust\src\SmartParking-API\obj\Debug\net9.0\SmartParking-API.pdb
 C:\School\Backend-development\BackEndExamAugust\src\SmartParking-API\obj\Debug\net9.0\SmartParking-API.genruntimeconfig.cache
 C:\School\Backend-development\BackEndExamAugust\src\SmartParking-API\obj\Debug\net9.0\ref\SmartParking-API.dll
+C:\School\Backend-development\BackEndExamAugust\src\SmartParking-API\obj\Debug\net9.0\SmartParking-API.sourcelink.json
