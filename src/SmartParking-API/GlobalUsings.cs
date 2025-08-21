@@ -1,0 +1,11 @@
+global using SmartParking_API.Models;
+global using SmartParking_API.DTOs;
+global using SmartParking_API.Repositories;
+global using SmartParking_API.Services;
+global using SmartParking_API.Infrastructure;
+global using Microsoft.AspNetCore.Mvc;
+global using System.ComponentModel.DataAnnotations;
+global using MongoDB.Bson;
+global using MongoDB.Bson.Serialization.Attributes;
+global using MongoDB.Driver;
+global using MiniValidation;
